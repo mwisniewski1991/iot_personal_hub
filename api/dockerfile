@@ -1,0 +1,24 @@
+# Używamy oficjalnego obrazu Python
+FROM python:3.10-slim
+
+# Ustawiamy katalog roboczy w kontenerze
+WORKDIR /app
+
+# Kopiujemy requirements.txt
+COPY requirements.txt .
+
+# Instalujemy zależności
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Kopiujemy kod aplikacji
+COPY app.py .
+
+# Eksponujemy port 5000
+EXPOSE 5000
+
+# Ustawiamy zmienne środowiskowe
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+# Uruchamiamy aplikację
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
