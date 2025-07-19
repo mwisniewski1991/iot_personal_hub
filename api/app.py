@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 import os
 import logging
+from hashlib import sha256
+from db_managment.DB_Client import DB_Client
 
 app = Flask(__name__)
 
@@ -19,6 +21,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def save_data_to_db(data: dict):
+    db_client = DB_Client()
+    db_client.save_data_to_db(data)
+    db_client.close_db_client()
+
+
 @app.route('/')
 def home():
     """Strona główna z informacjami o API"""
@@ -34,12 +42,13 @@ def mobile_location():
     """Odbieranie lokalizacji urządzenia mobilnego"""
     try:
         api_key = request.headers.get('X-API-Key')
-        if api_key != API_KEY:
+        if sha256(api_key.encode()).hexdigest() != API_KEY:
             logger.error(f"Nieprawidłowy klucz API: {api_key}")
             return jsonify({"error": "Nieprawidłowy klucz API"}), 401
         
         data = request.get_json()
         logger.info(f"Otrzymano dane: {data}")
+        save_data_to_db(data)
         return jsonify({"message": "Lokalizacja odbierana"})
 
     except Exception as e:
