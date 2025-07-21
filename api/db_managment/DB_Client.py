@@ -35,6 +35,6 @@ class DB_Client:
         
     def save_data_to_db(self, data: dict):  
         cursor = self.get_cursor()
-        cursor.execute("INSERT INTO device_locations_test (device_id, latitude, longitude) VALUES (%s, %s, %s)", (data['device_id'], data['latitude'], data['longitude']))
+        cursor.execute("INSERT INTO device_locations_test (device_id, latitude, longitude, timestamp_unix) VALUES (%s, %s, %s, %s)", (data['device_id'], data['latitude'], data['longitude'], data['timestamp_unix']))
         self.db_client.commit()
         self.close_cursor(cursor)
