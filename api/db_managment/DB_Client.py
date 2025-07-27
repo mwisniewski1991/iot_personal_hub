@@ -36,6 +36,6 @@ class DB_Client:
         
     def save_data_to_db(self, data: dict):  
         cursor = self.get_cursor()
-        cursor.execute('INSERT INTO {DB_TABLE} (device_id, device_timestamp, properties) VALUES (%s, %s, %s)', (data['device_id'], data['device_timestamp'], json.dumps(data['properties'])))
+        cursor.execute(f'INSERT INTO {DB_TABLE} (device_id, device_timestamp, properties) VALUES (%s, %s, %s)', (data['device_id'], data['device_timestamp'], json.dumps(data['properties'])))
         self.db_client.commit()
         self.close_cursor(cursor)
