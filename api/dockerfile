@@ -11,14 +11,14 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopiujemy kod aplikacji
-COPY app.py .
+COPY . .
 
 # Eksponujemy port 5000
 EXPOSE 5000
 
 # Ustawiamy zmienne środowiskowe
 ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_ENV=production
 
-# Uruchamiamy aplikację
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+# Uruchamiamy aplikację z Gunicorn
+CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]
