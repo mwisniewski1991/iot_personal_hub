@@ -1,6 +1,7 @@
 import psycopg2
 from dotenv import load_dotenv
 import os
+import json 
 
 load_dotenv()
 
@@ -35,6 +36,6 @@ class DB_Client:
         
     def save_data_to_db(self, data: dict):  
         cursor = self.get_cursor()
-        cursor.execute("INSERT INTO device_locations_test (device_id, latitude, longitude, timestamp_unix) VALUES (%s, %s, %s, %s)", (data['device_id'], data['latitude'], data['longitude'], data['timestamp_unix']))
+        cursor.execute('INSERT INTO device_locations_test (device_id, device_timestamp, properties) VALUES (%s, %s, %s)', (data['device_id'], data['device_timestamp'], json.dumps(data['properties'])))
         self.db_client.commit()
         self.close_cursor(cursor)
