@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import io
 import json
+from datetime import datetime
 
 load_dotenv()
 
@@ -40,13 +41,20 @@ class MINIO_Client:
     def _get_timestamp(self, data: dict):
         return data['device_timestamp']
 
+    def _unix_timestamp_to_format_date(self, timestamp: int):
+        return datetime.fromtimestamp(int(timestamp)).strftime('%Y-%m-%d')
+
     def save_data_to_minio(self, data: dict):
         json_data = self._dumped_data(data)
         json_stream = self._streamed_data(data)
 
+        device_id = self._get_device_id(data)
+        timestamp = self._get_timestamp(data)
+        format_date = self._unix_timestamp_to_format_date(timestamp)
+
         self.minio_client.put_object(
             bucket_name=MINIO_BUCKET_NAME,
-            object_name=f'mobile/{self._get_device_id(data)}/{self._get_timestamp(data)}.json',
+            object_name=f'mobile/{device_id}/{format_date}/{timestamp}.json',
             data=json_stream,
             length=len(json_data),
             content_type='application/json'
