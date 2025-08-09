@@ -4,6 +4,7 @@ import os
 import logging
 from hashlib import sha256
 from db_managment.DB_Client import DB_Client
+from minio_managment.MINIO_Client import MINIO_Client
 
 app = Flask(__name__)
 
@@ -26,6 +27,9 @@ def save_data_to_db(data: dict):
     db_client.save_data_to_db(data)
     db_client.close_db_client()
 
+def save_data_to_minio(data: dict):
+    minio_client = MINIO_Client()
+    minio_client.save_data_to_minio(data)
 
 @app.route('/')
 def home():
@@ -48,7 +52,17 @@ def mobile_location():
         
         data = request.get_json()
         logger.info(f"Otrzymano dane: {data}")
-        save_data_to_db(data)
+        
+        try:
+            save_data_to_db(data)
+        except Exception as e:
+            logger.error(f"Błąd zapisu do bazy danych: {str(e)}")
+        
+        try:
+            save_data_to_minio(data)
+        except Exception as e:
+            logger.error(f"Błąd zapisu do MinIO: {str(e)}")
+        
         return jsonify({"message": "Lokalizacja odbierana"})
 
     except Exception as e:
