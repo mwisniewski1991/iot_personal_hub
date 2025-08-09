@@ -47,3 +47,24 @@ class DB_Client:
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
+    
+    def get_devices_locations(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_locations')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
+
+    def get_devices_battery_level(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_level')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
+
+    def get_devices_temperature(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_temperature')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
