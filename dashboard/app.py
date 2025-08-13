@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 from db_managment.DB_Client import DB_Client
 
 st.set_page_config(layout="wide")
@@ -11,11 +10,11 @@ st.caption("System monitorowania urządzeń IoT - dane w czasie rzeczywistym")
 db_client = DB_Client()
 data = db_client.get_data_from_db()
 devices_locations = db_client.get_devices_locations()
+devices_location_altitude_m = db_client.get_devices_location_altitude_m()
 devices_battery_level = db_client.get_devices_battery_level()
 devices_battery_temperature = db_client.get_devices_battery_temperature()
 devices_battery_usage_current_mA = db_client.get_devices_battery_usage_current_mA()
 devices_battery_usage_current_average_mA = db_client.get_devices_battery_usage_current_average_mA()
-devices_location_altitude_m = db_client.get_devices_location_altitude_m()
 db_client.close_db_client()
 
 
