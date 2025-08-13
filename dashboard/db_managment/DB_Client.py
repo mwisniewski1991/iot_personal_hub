@@ -62,9 +62,30 @@ class DB_Client:
         self.close_cursor(cursor)
         return data
 
-    def get_devices_temperature(self):
+    def get_devices_battery_temperature(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_temperature')
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_temperature')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
+
+    def get_devices_battery_usage_current_mA(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_usage_current_mA')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
+
+    def get_devices_battery_usage_current_average_mA(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_usage_current_average_mA')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
+
+    def get_devices_location_altitude_m(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_location_altitude_m')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
