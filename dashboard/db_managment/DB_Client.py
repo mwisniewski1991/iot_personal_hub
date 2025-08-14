@@ -41,7 +41,7 @@ class DB_Client:
         self.db_client.commit()
         self.close_cursor(cursor)
 
-    def get_data_from_db(self):
+    def get_devices_events_counter(self):
         cursor = self.get_cursor()
         cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_events_counter')
         data = cursor.fetchall()
@@ -57,28 +57,28 @@ class DB_Client:
 
     def get_devices_battery_level(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_level')
+        cursor.execute(f'SELECT device_timestamp, level_min, level_avg, level_max FROM {DB_SCHEMA}.devices_battery_level')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
 
     def get_devices_battery_temperature(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_temperature')
+        cursor.execute(f'SELECT device_timestamp, temperature_min, temperature_avg, temperature_max FROM {DB_SCHEMA}.devices_battery_temperature')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
 
     def get_devices_battery_usage_current_mA(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_usage_current_mA')
+        cursor.execute(f'SELECT device_timestamp, usage_current_mA_min, usage_current_mA_avg, usage_current_mA_max FROM {DB_SCHEMA}.devices_battery_usage_current_mA')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
 
     def get_devices_battery_usage_current_average_mA(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_battery_usage_current_average_mA')
+        cursor.execute(f'SELECT device_timestamp, usage_current_average_mA_min, usage_current_average_mA_avg, usage_current_average_mA_max FROM {DB_SCHEMA}.devices_battery_usage_current_average_mA')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
