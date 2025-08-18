@@ -2,7 +2,7 @@ import streamlit as st
 from pandas import Timestamp
 
 def create_chart_devices_events_counter(data):
-    st.subheader("Ilość wysłanych zdarzeń przez urządzenie")
+    st.subheader("Ilość wysłanych zdarzeń przez smartphone")
     st.write("Wykres przedstawia ile zestawów danych zostało wysłanych w dniu i godzinie. Dane za ostatnie 7 dni")
 
     tab1, tab2 = st.tabs(["Wykres", "Dane"])
@@ -45,7 +45,7 @@ def create_chart_devices_events_counter(data):
 
 def create_chart_devices_location_altitude_m(data):
     st.subheader("Wysokość urządzenia nad poziomem morza")
-    st.write("Pionowa linia oznacza początek doby")
+    
 
     unique_days = data['device_timestamp'].dt.date.unique()
     day_starts = [Timestamp(day) for day in unique_days]
@@ -71,11 +71,22 @@ def create_chart_devices_location_altitude_m(data):
             "width": 400,
             "height": 300
         }
-    st.vega_lite_chart(data, chart_spec)
+    
+    tab1, tab2 = st.tabs(["Wykres", "Legenda"])
+    
+    with tab1:
+        st.vega_lite_chart(data, chart_spec)
+        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
+    
+    with tab2:
+        st.markdown("""
+        Dane za ostatnie 7 dni:  
+        🔵 **Niebieska linia ciągła** - Wysokość urządzenia nad poziomem morza  
+        ⚪ **Białe linie pionowe** - Początek doby  
+        """)
 
 def create_chart_devices_battery_level(data):
     st.subheader("Poziom baterii urządzenia")
-    st.write("Pionowa linia oznacza początek doby")
 
     unique_days = data['device_timestamp'].dt.date.unique()
     day_starts = [Timestamp(day) for day in unique_days]
@@ -131,6 +142,7 @@ def create_chart_devices_battery_level(data):
     
     with tab2:
         st.markdown("""
+        Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średni poziom baterii w godzinie  
         🟢 **Zielona linia przerywana** - Minimalny poziom baterii w godzinie  
         🔴 **Czerwona linia przerywana** - Maksymalny poziom baterii w godzinie  
@@ -139,7 +151,7 @@ def create_chart_devices_battery_level(data):
 
 def create_chart_devices_battery_temperature(data):
     st.subheader("Temperatura urządzenia")
-    st.write("Pionowa linia oznacza początek doby")
+    
 
     unique_days = data['device_timestamp'].dt.date.unique()
     day_starts = [Timestamp(day) for day in unique_days]
@@ -188,15 +200,16 @@ def create_chart_devices_battery_temperature(data):
     
     with tab2:
         st.markdown("""
-        🔵 **Niebieska linia ciągła** - Średnia temperatura w godzinie
-        🟢 **Zielona linia przerywana** - Minimalna temperatura w godzinie
-        🔴 **Czerwona linia przerywana** - Maksymalna temperatura w godzinie
+        Dane za ostatnie 7 dni:  
+        🔵 **Niebieska linia ciągła** - Średnia temperatura w godzinie  
+        🟢 **Zielona linia przerywana** - Minimalna temperatura w godzinie  
+        🔴 **Czerwona linia przerywana** - Maksymalna temperatura w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
 def create_devices_battery_usage_current_average_mA(data):
     st.subheader("Średni prąd urządzenia")
-    st.write("Pionowa linia oznacza początek doby")
+    
     unique_days = data['device_timestamp'].dt.date.unique()
     day_starts = [Timestamp(day) for day in unique_days]
     
@@ -244,15 +257,16 @@ def create_devices_battery_usage_current_average_mA(data):
     
     with tab2:
         st.markdown("""
-        🔵 **Niebieska linia ciągła** - Średni prąd (średnia) w godzinie
-        🟢 **Zielona linia przerywana** - Minimalny średni prąd w godzinie
-        🔴 **Czerwona linia przerywana** - Maksymalny średni prąd w godzinie
+        Dane za ostatnie 7 dni:  
+        🔵 **Niebieska linia ciągła** - Średni prąd (średnia) w godzinie  
+        🟢 **Zielona linia przerywana** - Minimalny średni prąd w godzinie  
+        🔴 **Czerwona linia przerywana** - Maksymalny średni prąd w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
 def create_chart_devices_battery_usage_current_mA(data):
     st.subheader("Prąd pobierany przez urządzenie")
-    st.write("Pionowa linia oznacza początek doby")
+    
 
     unique_days = data['device_timestamp'].dt.date.unique()
     day_starts = [Timestamp(day) for day in unique_days]
@@ -302,8 +316,9 @@ def create_chart_devices_battery_usage_current_mA(data):
     
     with tab2:
         st.markdown("""
-        🔵 **Niebieska linia ciągła** - Średni prąd pobierany w godzinie
-        🟢 **Zielona linia przerywana** - Minimalny prąd pobierany w godzinie
-        🔴 **Czerwona linia przerywana** - Maksymalny prąd pobierany w godzinie
+        Dane za ostatnie 7 dni:  
+        🔵 **Niebieska linia ciągła** - Średni prąd pobierany w godzinie  
+        🟢 **Zielona linia przerywana** - Minimalny prąd pobierany w godzinie  
+        🔴 **Czerwona linia przerywana** - Maksymalny prąd pobierany w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
