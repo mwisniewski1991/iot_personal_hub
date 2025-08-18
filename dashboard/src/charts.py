@@ -186,7 +186,7 @@ def create_devices_battery_usage_current_average_mA(data):
     st.vega_lite_chart(data, chart_spec)
 
 def create_chart_devices_battery_usage_current_mA(data):
-    st.subheader("Prąd urządzenia")
+    st.subheader("Prąd pobierany przez urządzenie")
     st.write("Pionowa linia oznacza początek doby")
 
     unique_days = data['device_timestamp'].dt.date.unique()
