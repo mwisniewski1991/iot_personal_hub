@@ -57,8 +57,4 @@ with col3:
         charts.create_chart_devices_battery_usage_current_mA(df_devices_battery_usage_current_mA)
 
 with col4:
-    if devices_battery_usage_current_average_mA:
-        df_devices_battery_usage_current_average_mA = pd.DataFrame(devices_battery_usage_current_average_mA, columns=['device_timestamp', 'usage_current_average_mA_min', 'usage_current_average_mA_avg', 'usage_current_average_mA_max'])
-        df_devices_battery_usage_current_average_mA['device_timestamp'] = pd.to_datetime(df_devices_battery_usage_current_average_mA['device_timestamp'])
-        charts.create_devices_battery_usage_current_average_mA(df_devices_battery_usage_current_average_mA)
-
+    pass
