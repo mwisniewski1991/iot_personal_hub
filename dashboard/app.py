@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import src.charts as charts 
+import src.maps as maps
 from db_managment.DB_Client import DB_Client
 
 st.set_page_config(layout="wide", page_title="IoT Personal Hub", page_icon="src/static/favicon.ico")
@@ -28,7 +29,7 @@ col5, col6 = st.columns(2)
 with col5:
     if devices_locations:
         df_devices_locations = pd.DataFrame(devices_locations, columns=['latitude', 'longitude'])
-        charts.create_chart_devices_location_latitude_longitude_osm(df_devices_locations)
+        maps.create_chart_devices_location_latitude_longitude_osm(df_devices_locations)
 
 with col6:
     if devices_location_altitude_m:
