@@ -50,7 +50,7 @@ class DB_Client:
     
     def get_devices_locations(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_locations')
+        cursor.execute(f'select ST_Y(location) as latitude, ST_X(location) as longitude from {DB_SCHEMA}.device_locations_gis_stricted dl;')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
