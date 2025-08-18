@@ -3,7 +3,7 @@ import pandas as pd
 import src.charts as charts 
 from db_managment.DB_Client import DB_Client
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="IoT Personal Hub", page_icon="src/static/favicon.ico")
 
 st.title("IoT Dashboard")
 st.caption("System monitorowania urządzeń IoT - dane w czasie rzeczywistym")
