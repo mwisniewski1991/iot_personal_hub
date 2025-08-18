@@ -94,8 +94,20 @@ def create_chart_devices_battery_level(data):
             "width": 400,
             "height": 300
         }
-        
-    st.vega_lite_chart(data, chart_spec)
+    
+    tab1, tab2 = st.tabs(["Wykres", "Legenda"])
+    
+    with tab1:
+        st.vega_lite_chart(data, chart_spec)
+        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
+    
+    with tab2:
+        st.markdown("""
+        🔵 **Niebieska linia ciągła** - Średni poziom baterii w godzinie  
+        🟢 **Zielona linia przerywana** - Minimalny poziom baterii w godzinie  
+        🔴 **Czerwona linia przerywana** - Maksymalny poziom baterii w godzinie  
+        ⚪ **Białe linie pionowe** - Początek doby  
+        """)
 
 def create_chart_devices_battery_temperature(data):
     st.subheader("Temperatura urządzenia")
@@ -140,7 +152,19 @@ def create_chart_devices_battery_temperature(data):
         "height": 300
     }
     
-    st.vega_lite_chart(data, chart_spec)
+    tab1, tab2 = st.tabs(["Wykres", "Legenda"])
+    
+    with tab1:
+        st.vega_lite_chart(data, chart_spec)
+        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
+    
+    with tab2:
+        st.markdown("""
+        🔵 **Niebieska linia ciągła** - Średnia temperatura w godzinie
+        🟢 **Zielona linia przerywana** - Minimalna temperatura w godzinie
+        🔴 **Czerwona linia przerywana** - Maksymalna temperatura w godzinie
+        ⚪ **Białe linie pionowe** - Początek doby  
+        """)
 
 def create_devices_battery_usage_current_average_mA(data):
     st.subheader("Średni prąd urządzenia")
@@ -183,7 +207,20 @@ def create_devices_battery_usage_current_average_mA(data):
         "width": 400,
         "height": 300
     }
-    st.vega_lite_chart(data, chart_spec)
+    
+    tab1, tab2 = st.tabs(["Wykres", "Legenda"])
+    
+    with tab1:
+        st.vega_lite_chart(data, chart_spec)
+        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
+    
+    with tab2:
+        st.markdown("""
+        🔵 **Niebieska linia ciągła** - Średni prąd (średnia) w godzinie
+        🟢 **Zielona linia przerywana** - Minimalny średni prąd w godzinie
+        🔴 **Czerwona linia przerywana** - Maksymalny średni prąd w godzinie
+        ⚪ **Białe linie pionowe** - Początek doby  
+        """)
 
 def create_chart_devices_battery_usage_current_mA(data):
     st.subheader("Prąd pobierany przez urządzenie")
@@ -228,7 +265,20 @@ def create_chart_devices_battery_usage_current_mA(data):
         "width": 400,
         "height": 300
     }
-    st.vega_lite_chart(data, chart_spec)
+    
+    tab1, tab2 = st.tabs(["Wykres", "Legenda"])
+    
+    with tab1:
+        st.vega_lite_chart(data, chart_spec)
+        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
+    
+    with tab2:
+        st.markdown("""
+        🔵 **Niebieska linia ciągła** - Średni prąd pobierany w godzinie
+        🟢 **Zielona linia przerywana** - Minimalny prąd pobierany w godzinie
+        🔴 **Czerwona linia przerywana** - Maksymalny prąd pobierany w godzinie
+        ⚪ **Białe linie pionowe** - Początek doby  
+        """)
 
 def create_chart_devices_location_altitude_m(data):
     st.subheader("Wysokość urządzenia nad poziomem morza")
