@@ -11,6 +11,7 @@ DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_TABLE = os.getenv('DB_TABLE')
+DB_SCHEMA = os.getenv('DB_SCHEMA')
 
 class DB_Client:
     def __init__(self):
@@ -36,6 +37,6 @@ class DB_Client:
         
     def save_data_to_db(self, data: dict):  
         cursor = self.get_cursor()
-        cursor.execute(f'INSERT INTO {DB_TABLE} (device_id, device_timestamp, properties) VALUES (%s, %s, %s)', (data['device_id'], data['device_timestamp'], json.dumps(data['properties'])))
+        cursor.execute(f'INSERT INTO {DB_SCHEMA}.{DB_TABLE} (device_id, device_timestamp, properties) VALUES (%s, %s, %s)', (data['device_id'], data['device_timestamp'], json.dumps(data['properties'])))
         self.db_client.commit()
         self.close_cursor(cursor)
