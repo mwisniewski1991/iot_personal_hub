@@ -109,7 +109,7 @@ def create_chart_devices_battery_level(data):
                     }
                 },
                 { # Avg line
-                    "mark": {"type": "line", "color": "blue", "strokeWidth": 2},
+                    "mark": {"type": "line", "strokeWidth": 2},
                     "encoding": {
                         "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
                         "y": {"field": "level_avg", "type": "quantitative", "title": "Poziom baterii"}
@@ -138,7 +138,7 @@ def create_chart_devices_battery_level(data):
         st.markdown("""
         Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średni poziom baterii w godzinie  
-        🟦 **Niebieski obszar** - Zakres między minimalnym a maksymalnym poziomem baterii w godzinie  
+        ⚪ **Biały obszar** - Zakres między minimalnym a maksymalnym poziomem baterii w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
@@ -160,7 +160,7 @@ def create_chart_devices_battery_temperature(data):
                 }
             },
             { # Avg line
-                "mark": {"type": "line", "color": "blue", "strokeWidth": 2},
+                "mark": {"type": "line", "strokeWidth": 2},
                 "encoding": {
                     "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
                     "y": {"field": "temperature_avg", "type": "quantitative", "title": "Temperatura"}
@@ -189,7 +189,7 @@ def create_chart_devices_battery_temperature(data):
         st.markdown("""
         Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średnia temperatura w godzinie  
-        🟦 **Niebieski obszar** - Zakres między minimalną a maksymalną temperaturą w godzinie  
+        ⚪ **Biały obszar** - Zakres między minimalną a maksymalną temperaturą w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
@@ -212,7 +212,7 @@ def create_chart_devices_battery_usage_current_mA(data):
                 }
             },
             { # Avg line
-                "mark": {"type": "line", "color": "blue", "strokeWidth": 2},
+                "mark": {"type": "line","strokeWidth": 2},
                 "encoding": {
                     "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
                     "y": {"field": "usage_current_mA_avg", "type": "quantitative", "title": "Prąd"}
@@ -241,6 +241,6 @@ def create_chart_devices_battery_usage_current_mA(data):
         st.markdown("""
         Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średni prąd pobierany w godzinie  
-        🟦 **Niebieski obszar** - Zakres między minimalnym a maksymalnym prądem w godzinie  
+        ⚪ **Biały obszar** - Zakres między minimalnym a maksymalnym prądem w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
