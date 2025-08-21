@@ -193,63 +193,6 @@ def create_chart_devices_battery_temperature(data):
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
-def create_devices_battery_usage_current_average_mA(data):
-    st.subheader("Średni prąd urządzenia")
-    
-    unique_days = data['device_timestamp'].dt.date.unique()
-    day_starts = [Timestamp(day) for day in unique_days]
-    
-    chart_spec = {
-        "layer": [
-            { # Avg
-                "mark": "line",
-                "encoding": {
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "usage_current_average_mA_avg", "type": "quantitative", "title": "Średni prąd"}
-                }
-            },
-            { # Min
-                "mark": {"type": "line", "color": "green", "strokeDash": [4, 4]},
-                "encoding": {
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "usage_current_average_mA_min", "type": "quantitative", "title": "Średni prąd"}
-                }
-            },
-            { # Max
-                "mark": {"type": "line", "color": "red", "strokeDash": [4, 4]},
-                "encoding": {
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "usage_current_average_mA_max", "type": "quantitative", "title": "Średni prąd"}
-                }
-            },
-            {
-                "mark": {"type": "rule", "color": "white", "strokeDash": [4, 4]},
-                "encoding": {
-                    "x": {"field": "day_start", "type": "temporal"}
-                },
-                "data": {"values": [{"day_start": str(day)} for day in day_starts]}
-            }
-        ],
-        "resolve": {"scale": {"color": "independent"}},
-        "width": 400,
-        "height": 300
-    }
-    
-    tab1, tab2 = st.tabs(["Wykres", "Legenda"])
-    
-    with tab1:
-        st.vega_lite_chart(data, chart_spec)
-        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
-    
-    with tab2:
-        st.markdown("""
-        Dane za ostatnie 7 dni:  
-        🔵 **Niebieska linia ciągła** - Średni prąd (średnia) w godzinie  
-        🟢 **Zielona linia przerywana** - Minimalny średni prąd w godzinie  
-        🔴 **Czerwona linia przerywana** - Maksymalny średni prąd w godzinie  
-        ⚪ **Białe linie pionowe** - Początek doby  
-        """)
-
 def create_chart_devices_battery_usage_current_mA(data):
     st.subheader("Prąd pobierany przez urządzenie")
     
