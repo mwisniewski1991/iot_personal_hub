@@ -55,30 +55,23 @@ class DB_Client:
         self.close_cursor(cursor)
         return data
 
-    def get_devices_battery_level(self):
+    def get_devices_smartphone_battery_level(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT device_timestamp, level_min, level_avg, level_max FROM {DB_SCHEMA}.devices_battery_level')
+        cursor.execute(f'SELECT device_timestamp, level_min, level_avg, level_max FROM {DB_SCHEMA}.view_devices_smartphone_battery_level where device_id = 1')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
 
-    def get_devices_battery_temperature(self):
+    def get_devices_smartphone_battery_temperature(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT device_timestamp, temperature_min, temperature_avg, temperature_max FROM {DB_SCHEMA}.devices_battery_temperature')
+        cursor.execute(f'SELECT device_timestamp, temperature_min, temperature_avg, temperature_max FROM {DB_SCHEMA}.view_devices_smartphone_battery_temperature where device_id = 1')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
 
-    def get_devices_battery_usage_current_mA(self):
+    def get_devices_smartphone_battery_usage_current_mA(self):
         cursor = self.get_cursor()
-        cursor.execute(f'SELECT device_timestamp, usage_current_mA_min, usage_current_mA_avg, usage_current_mA_max FROM {DB_SCHEMA}.devices_battery_usage_current_mA')
-        data = cursor.fetchall()
-        self.close_cursor(cursor)
-        return data
-
-    def get_devices_battery_usage_current_average_mA(self):
-        cursor = self.get_cursor()
-        cursor.execute(f'SELECT device_timestamp, usage_current_average_mA_min, usage_current_average_mA_avg, usage_current_average_mA_max FROM {DB_SCHEMA}.devices_battery_usage_current_average_mA')
+        cursor.execute(f'SELECT device_timestamp, usage_current_mA_min, usage_current_mA_avg, usage_current_mA_max FROM {DB_SCHEMA}.view_devices_smartphone_battery_usage_current_mA where device_id = 1')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data
