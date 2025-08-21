@@ -93,8 +93,8 @@ def create_chart_devices_battery_level(data):
 
     chart_spec = {
             "layer": [
-                { # Avg
-                    "mark": "line",
+                { # Ranged Area for Min/Max
+                    "mark": {"type": "area", "opacity": 0.3, "color": "lightblue"},
                     "encoding": {
                         "x": {
                             "field": "device_timestamp", 
@@ -104,21 +104,15 @@ def create_chart_devices_battery_level(data):
                                 "format": "%d.%m %H:00"
                             }
                         },
+                        "y": {"field": "level_min", "type": "quantitative", "title": "Poziom baterii"},
+                        "y2": {"field": "level_max"}
+                    }
+                },
+                { # Avg line
+                    "mark": {"type": "line", "color": "blue", "strokeWidth": 2},
+                    "encoding": {
+                        "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
                         "y": {"field": "level_avg", "type": "quantitative", "title": "Poziom baterii"}
-                    }
-                },
-                { # Min
-                    "mark": {"type": "line", "color": "green", "strokeDash": [4, 4]},
-                    "encoding": {
-                        "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                        "y": {"field": "level_min", "type": "quantitative", "title": "Poziom baterii"}
-                    }
-                },
-                { # Max
-                    "mark": {"type": "line", "color": "red", "strokeDash": [4, 4]},
-                    "encoding": {
-                        "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                        "y": {"field": "level_max", "type": "quantitative", "title": "Poziom baterii"}
                     }
                 },
                 {
@@ -144,8 +138,7 @@ def create_chart_devices_battery_level(data):
         st.markdown("""
         Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średni poziom baterii w godzinie  
-        🟢 **Zielona linia przerywana** - Minimalny poziom baterii w godzinie  
-        🔴 **Czerwona linia przerywana** - Maksymalny poziom baterii w godzinie  
+        🟦 **Niebieski obszar** - Zakres między minimalnym a maksymalnym poziomem baterii w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
@@ -158,29 +151,23 @@ def create_chart_devices_battery_temperature(data):
     
     chart_spec = {
         "layer": [
-            { # Avg
-                "mark": "line",
+            { # Ranged Area for Min/Max
+                "mark": {"type": "area", "opacity": 0.3, "color": "lightblue"},
+                "encoding": {
+                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
+                    "y": {"field": "temperature_min", "type": "quantitative", "title": "Temperatura"},
+                    "y2": {"field": "temperature_max"}
+                }
+            },
+            { # Avg line
+                "mark": {"type": "line", "color": "blue", "strokeWidth": 2},
                 "encoding": {
                     "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
                     "y": {"field": "temperature_avg", "type": "quantitative", "title": "Temperatura"}
                 }
             },
-            { # Min
-                "mark": {"type": "line", "color": "green", "strokeDash": [4, 4]},
-                "encoding": {
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "temperature_min", "type": "quantitative", "title": "Temperatura"}
-                }
-            },
-            { # Max
-                "mark": {"type": "line", "color": "red", "strokeDash": [4, 4]},
-                "encoding": {
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "temperature_max", "type": "quantitative", "title": "Temperatura"}
-                }
-            },
             {
-                    "mark": {"type": "rule", "color": "white", "strokeDash": [4, 4]},
+                "mark": {"type": "rule", "color": "white", "strokeDash": [4, 4]},
                 "encoding": {
                     "x": {"field": "day_start", "type": "temporal"}
                 },
@@ -202,8 +189,7 @@ def create_chart_devices_battery_temperature(data):
         st.markdown("""
         Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średnia temperatura w godzinie  
-        🟢 **Zielona linia przerywana** - Minimalna temperatura w godzinie  
-        🔴 **Czerwona linia przerywana** - Maksymalna temperatura w godzinie  
+        🟦 **Niebieski obszar** - Zakres między minimalną a maksymalną temperaturą w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
@@ -274,25 +260,19 @@ def create_chart_devices_battery_usage_current_mA(data):
     
     chart_spec = {
         "layer": [
-            { # Avg
-                "mark": "line",
+            { # Ranged Area for Min/Max
+                "mark": {"type": "area", "opacity": 0.3, "color": "lightblue"},
+                "encoding": {
+                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
+                    "y": {"field": "usage_current_mA_min", "type": "quantitative", "title": "Prąd"},
+                    "y2": {"field": "usage_current_mA_max"}
+                }
+            },
+            { # Avg line
+                "mark": {"type": "line", "color": "blue", "strokeWidth": 2},
                 "encoding": {
                     "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
                     "y": {"field": "usage_current_mA_avg", "type": "quantitative", "title": "Prąd"}
-                }
-            },
-            { # Min
-                "mark": {"type": "line", "color": "green", "strokeDash": [4, 4]},
-                "encoding": {   
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "usage_current_mA_min", "type": "quantitative", "title": "Prąd"}
-                }
-            },
-            { # Max
-                "mark": {"type": "line", "color": "red", "strokeDash": [4, 4]},
-                "encoding": {
-                    "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                    "y": {"field": "usage_current_mA_max", "type": "quantitative", "title": "Prąd"}
                 }
             },
             {
@@ -318,7 +298,6 @@ def create_chart_devices_battery_usage_current_mA(data):
         st.markdown("""
         Dane za ostatnie 7 dni:  
         🔵 **Niebieska linia ciągła** - Średni prąd pobierany w godzinie  
-        🟢 **Zielona linia przerywana** - Minimalny prąd pobierany w godzinie  
-        🔴 **Czerwona linia przerywana** - Maksymalny prąd pobierany w godzinie  
+        🟦 **Niebieski obszar** - Zakres między minimalnym a maksymalnym prądem w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
