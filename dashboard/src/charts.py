@@ -85,7 +85,7 @@ def create_chart_devices_location_altitude_m(data):
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
-def create_chart_devices_battery_level(data):
+def create_chart_devices_smartphone_battery_level(data):
     st.subheader("Poziom baterii urządzenia")
 
     unique_days = data['device_timestamp'].dt.date.unique()
@@ -142,7 +142,7 @@ def create_chart_devices_battery_level(data):
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
-def create_chart_devices_battery_temperature(data):
+def create_chart_devices_smartphone_battery_temperature(data):
     st.subheader("Temperatura urządzenia")
     
 
@@ -193,7 +193,7 @@ def create_chart_devices_battery_temperature(data):
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
-def create_chart_devices_battery_usage_current_mA(data):
+def create_chart_devices_smartphone_battery_usage_current_mA(data):
     st.subheader("Prąd pobierany przez urządzenie")
     
 
