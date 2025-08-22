@@ -36,7 +36,7 @@ col3, col4 = st.columns(2)
 with col3:
     pass
     if devices_location_altitude_m:
-        df_devices_location_altitude_m = pd.DataFrame(devices_location_altitude_m, columns=['device_timestamp', 'altitude_m'])
+        df_devices_location_altitude_m = pd.DataFrame(devices_location_altitude_m, columns=['device_timestamp', 'altitude_min', 'altitude_avg', 'altitude_max'])
         df_devices_location_altitude_m['device_timestamp'] = pd.to_datetime(df_devices_location_altitude_m['device_timestamp'])
         charts.create_chart_devices_location_altitude_m(df_devices_location_altitude_m)
     else:
