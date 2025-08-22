@@ -69,7 +69,7 @@ class DB_Client:
         self.close_cursor(cursor)
         return data
 
-    def get_devices_location_altitude_m(self):
+    def get_devices_smartphone_location_altitude_m(self):
         cursor = self.get_cursor()
         cursor.execute(f'SELECT device_timestamp, altitude_min, altitude_avg, altitude_max FROM {DB_SCHEMA}.view_devices_smartphone_location_altitude where device_id = 1')
         data = cursor.fetchall()
