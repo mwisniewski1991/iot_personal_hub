@@ -69,7 +69,7 @@ CREATE TABLE iot_personal_hub.raw_devices_properties (
 ```
 
 📄 **Sample data:**  
-[Sample data](readme_utils/db_raw_devices_properties_example.png)
+![Sample data](readme_utils/db_raw_devices_properties_example.png)
 
 
 ### ⚙️ Data processing and orchestration
@@ -137,8 +137,8 @@ Additional data stored in the database includes tables:
 📂 [Link to sql_definitions directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/ddl)
 
 
-Dodatkowo baza zawiera jedną funkcję set_current_timestampz_updated_at, który ma za zadanie aktualizować kolumne updated_at w tabelach
-Do każdej tabeli z kolumną updated_at dodany jest trigger.
+Additionally, the database contains one function set_current_timestampz_updated_at, which is responsible for updating the updated_at column in tables.
+A trigger is added to each table with an updated_at column.
 📂 [Link to sql_definitions directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/functions/updated_at.sql)
 
 
