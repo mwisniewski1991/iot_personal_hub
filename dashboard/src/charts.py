@@ -43,7 +43,7 @@ def create_chart_devices_smartphone_events_counter(data):
         st.subheader("Dane tabelaryczne")
         st.dataframe(data)
 
-def create_chart_devices_location_altitude_m(data):
+def create_chart_devices_smartphone_location_altitude_m(data):
     st.subheader("Wysokość urządzenia nad poziomem morza")
     
 
