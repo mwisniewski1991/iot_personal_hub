@@ -1,6 +1,7 @@
 # IoT Personal Hub
 
 ## 📑 Table of Contents
+- [🛠️ Technologies](#️-technologies)
 - [🔄 Process Overview](#-process-overview)
 - [📋 Process Details](#-process-details)
   - [📡 Sources](#-sources)
@@ -9,13 +10,20 @@
   - [🐘 PostgreSQL](#-postgresql)
   - [⚙️ Data processing and orchestration](#️-data-processing-and-orchestration)
   - [📊 Dashboard](#-dashboard)
-- [🛠️ Technologies](#️-technologies)
+
+
+## 🛠️ Technologies
+- **Backend:** 🐍 Flask, 🌐 nginx (reverse proxy)
+- **Frontend:** 📊 Streamlit  
+- **Database:** 🐘 PostgreSQL
+- **Orchestration:** 🔄 Apache Airflow
+- **Deployment:** 🐳 Docker Compose
+- **Hosting:** ☁️ mikr.us
+- **Data Collection:** 📱 Automate (Android)
+
 
 ## 🔄 Process Overview
-📱 Source (smartphone with automate app) > 🌐 api (mikrus - nginx- flask) > 🗄️ database (mikr.us - postgres) > 📊 dashboard (python streamlit)
-
-**Database schema:** `iot_personal_hub`  
-📊 raw_devices_properties > 📈 agg_hourly_battery_details > 👁️ views
+![Process overview](readme_utils/process_overview.png)
 
 
 ## 📋 Process Details
@@ -61,10 +69,15 @@ CREATE TABLE iot_personal_hub.raw_devices_properties (
 ```
 
 📄 **Sample data:**  
-[Sample data](readme_utils/db_raw_devices_properties_example)
+[Sample data](readme_utils/db_raw_devices_properties_example.png)
 
 
 ### ⚙️ Data processing and orchestration
+
+🔄 **Process flow:**  
+![Data Flow](readme_utils/data_flow.png)
+
+
 Based on data from `raw_devices_properties`, 3 aggregations are created for:
 - 📊 number of events, 
 - 🔋 battery data,
@@ -73,7 +86,7 @@ Based on data from `raw_devices_properties`, 3 aggregations are created for:
 📂 [Link to aggregations directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/aggregations)
 
 📝 **Sample SQL for data aggregation:**  
-[Link to aggregation example](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/aggregations/smartphone/battery/agg_hourly_devices_smartphone_hourly_battery_details.sql)
+[Link to aggregation example](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/aggregations/smartphone/battery/agg_hourly_devices_smartphone_battery_details.sql)
 
 
 🔄 Calculations are performed at the database level and are run using the Airflow application (it is hosted on my home Homelab).
@@ -117,20 +130,47 @@ WHERE NOT EXISTS (
 );
 ```
 
-🔄 **Process schema:**  
-![Data Flow](readme_utils/data_flow.png)
+Additional data stored in the database includes tables:
+- dim_devices with a list of devices and their types
+    - enum_device_type containing enum data for the type column from the dim_devices table
+- dim_blocked_areas with a list of private zones.
+📂 [Link to sql_definitions directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/ddl)
 
+
+Dodatkowo baza zawiera jedną funkcję set_current_timestampz_updated_at, który ma za zadanie aktualizować kolumne updated_at w tabelach
+Do każdej tabeli z kolumną updated_at dodany jest trigger.
+📂 [Link to sql_definitions directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/functions/updated_at.sql)
 
 
 ### 📊 Dashboard
-🚧 Soon
+[http://iot-personal-hub.mwisniewski1991.pl/](http://iot-personal-hub.mwisniewski1991.pl/)
+
+📂 [Link to Dashboard directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/dashboard)  
+The dashboard was created using Streamlit and offers the following functionalities:
+
+**Available charts:**
+- 📊 **Event counter** - number of data sets sent over time
+- 🔋 **Battery level** - monitoring device charge level
+- 🌡️ **Device temperature** - battery temperature monitoring
+- ⚡ **Current consumption** - energy usage analysis (mA)
+- 📍 **Altitude above sea level** - vertical location data
+- 🗺️ **Location map** - device location visualization on map
+
+**Features:**
+- 📈 Line charts with min/max ranges
+- 📊 Tabular data for each chart  
+- 📅 Automatic filtering to last 7 days
+- 🔒 Privacy protection - filtering private locations
+
+### 🔒 Security
+- 🔑 **API Authorization** - access secured with token (sha256)
+- 🛡️ **Location Protection** - automatic filtering of private areas
+- 📊 **Logging** - detailed access and error logs
 
 
-## 🛠️ Technologies
-- **Backend:** 🐍 Flask, 🌐 nginx (reverse proxy)
-- **Frontend:** 📊 Streamlit
-- **Database:** 🐘 PostgreSQL
-- **Deployment:** 🐳 Docker Compose
-- **Hosting:** ☁️ mikr.us
-
+### 🔮 Future Plans
+- 🏠 **Home sensors** - integration with home IoT devices
+- 🚗 **Car data** - connection to onboard computer
+- 📱 **Offline storage** - local data storage when internet unavailable
+- 📊 **Extended analytics** - predictions and alerts
 
