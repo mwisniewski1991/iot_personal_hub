@@ -85,12 +85,9 @@ Based on data from `raw_devices_properties`, 3 aggregations are created for:
 
 📂 [Link to aggregations directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/aggregations)
 
-📝 **Sample SQL for data aggregation:**  
-[Link to aggregation example](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/sql_definitions/aggregations/smartphone/battery/agg_hourly_devices_smartphone_battery_details.sql)
-
 
 🔄 Calculations are performed at the database level and are run using the Airflow application (it is hosted on my home Homelab).
-- 📂 [Link to DAGs directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/dags)
+📂 [Link to DAGs directory](https://github.com/mwisniewski1991/iot_personal_hub/tree/master/dags)
 
 ![Airflow DAGs](readme_utils/airflow_dags.png)
 
