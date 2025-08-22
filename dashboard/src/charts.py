@@ -52,11 +52,19 @@ def create_chart_devices_location_altitude_m(data):
     
     chart_spec = {
             "layer": [
-                {
-                    "mark": "line",
+                { # Ranged Area for Min/Max
+                    "mark": {"type": "area", "opacity": 0.3, "color": "lightblue"},
                     "encoding": {
                         "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
-                        "y": {"field": "altitude_m", "type": "quantitative", "title": "Wysokość"}
+                        "y": {"field": "altitude_min", "type": "quantitative", "title": "Wysokość"},
+                        "y2": {"field": "altitude_max"}
+                    }
+                },
+                { # Avg line
+                    "mark": {"type": "line", "strokeWidth": 2},
+                    "encoding": {
+                        "x": {"field": "device_timestamp", "type": "temporal", "title": "Data godzina", "axis": {"format": "%d.%m %H:00"}},
+                        "y": {"field": "altitude_avg", "type": "quantitative", "title": "Wysokość"}
                     }
                 },
                 {
@@ -81,7 +89,8 @@ def create_chart_devices_location_altitude_m(data):
     with tab2:
         st.markdown("""
         Dane za ostatnie 7 dni:  
-        🔵 **Niebieska linia ciągła** - Wysokość urządzenia nad poziomem morza  
+        🔵 **Niebieska linia ciągła** - Średnia wysokość urządzenia nad poziomem morza  
+        ⚪ **Biały obszar** - Zakres między minimalną a maksymalną wysokością w godzinie  
         ⚪ **Białe linie pionowe** - Początek doby  
         """)
 
