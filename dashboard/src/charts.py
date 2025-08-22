@@ -1,13 +1,13 @@
 import streamlit as st
 from pandas import Timestamp
 
-def create_chart_devices_events_counter(data):
+def create_chart_devices_smartphone_events_counter(data):
     st.subheader("Ilość wysłanych zdarzeń przez smartphone")
     st.write("Wykres przedstawia ile zestawów danych zostało wysłanych w dniu i godzinie. Dane za ostatnie 7 dni")
 
     tab1, tab2 = st.tabs(["Wykres", "Dane"])
     with tab1:
-        unique_days = data['date'].dt.date.unique()
+        unique_days = data['device_timestamp'].dt.date.unique()
         day_starts = [Timestamp(day) for day in unique_days]
 
         st.vega_lite_chart(data, {
@@ -16,7 +16,7 @@ def create_chart_devices_events_counter(data):
                     "mark": "line",
                     "encoding": {
                         "x": {
-                            "field": "date", 
+                            "field": "device_timestamp", 
                             "type": "temporal", 
                             "title": "Data godzina",
                             "axis": {
@@ -38,7 +38,7 @@ def create_chart_devices_events_counter(data):
             "width": 700,
             "height": 400
         })
-        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['date'].min()} - {data['date'].max()}")
+        st.caption(f"Liczba pomiarów: {len(data)} | Zakres: {data['device_timestamp'].min()} - {data['device_timestamp'].max()}")
     with tab2:
         st.subheader("Dane tabelaryczne")
         st.dataframe(data)
