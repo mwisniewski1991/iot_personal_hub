@@ -41,13 +41,6 @@ class DB_Client:
         self.db_client.commit()
         self.close_cursor(cursor)
 
-    def get_devices_events_counter(self):
-        cursor = self.get_cursor()
-        cursor.execute(f'SELECT * FROM {DB_SCHEMA}.devices_events_counter')
-        data = cursor.fetchall()
-        self.close_cursor(cursor)
-        return data
-    
     def get_devices_locations(self):
         cursor = self.get_cursor()
         cursor.execute(f'select ST_Y(location) as latitude, ST_X(location) as longitude from {DB_SCHEMA}.device_locations_gis_stricted dl;')
@@ -79,6 +72,13 @@ class DB_Client:
     def get_devices_location_altitude_m(self):
         cursor = self.get_cursor()
         cursor.execute(f'SELECT device_timestamp, altitude_min, altitude_avg, altitude_max FROM {DB_SCHEMA}.view_devices_smartphone_location_altitude where device_id = 1')
+        data = cursor.fetchall()
+        self.close_cursor(cursor)
+        return data
+    
+    def get_devices_smartphone_events_counter(self):
+        cursor = self.get_cursor()
+        cursor.execute(f'SELECT device_timestamp, count_events FROM {DB_SCHEMA}.view_devices_smartphone_events_counter where device_id = 1')
         data = cursor.fetchall()
         self.close_cursor(cursor)
         return data

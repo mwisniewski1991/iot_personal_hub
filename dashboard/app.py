@@ -10,8 +10,8 @@ st.title("IoT Dashboard")
 st.caption("System monitorowania urządzeń IoT - dane w czasie rzeczywistym")
 
 db_client = DB_Client()
-devices_events_counter = db_client.get_devices_events_counter()
 devices_locations = db_client.get_devices_locations()
+devices_smartphone_events_counter = db_client.get_devices_smartphone_events_counter()   
 devices_location_altitude_m = db_client.get_devices_location_altitude_m()
 devices_smartphone_battery_level = db_client.get_devices_smartphone_battery_level()
 devices_smartphone_battery_temperature = db_client.get_devices_smartphone_battery_temperature()
@@ -21,10 +21,10 @@ db_client.close_db_client()
 
 col1, col2 = st.columns(2)
 with col1:
-    if devices_events_counter:
-        df_devices_events_counter = pd.DataFrame(devices_events_counter, columns=['date', 'count_events'])
-        df_devices_events_counter['date'] = pd.to_datetime(df_devices_events_counter['date'])
-        charts.create_chart_devices_events_counter(df_devices_events_counter)
+    if devices_smartphone_events_counter:
+        df_devices_smartphone_events_counter = pd.DataFrame(devices_smartphone_events_counter, columns=['device_timestamp', 'count_events'])
+        df_devices_smartphone_events_counter['device_timestamp'] = pd.to_datetime(df_devices_smartphone_events_counter['device_timestamp'])
+        charts.create_chart_devices_smartphone_events_counter(df_devices_smartphone_events_counter)
 
 with col2:
     if devices_locations:
