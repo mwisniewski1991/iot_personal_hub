@@ -1,6 +1,7 @@
 # IoT Personal Hub
 
 ## 📑 Table of Contents
+- [🎯 Goal](#-goal)
 - [🛠️ Technologies](#️-technologies)
 - [🔄 Process Overview](#-process-overview)
 - [📋 Process Details](#-process-details)
@@ -11,6 +12,10 @@
   - [⚙️ Data processing and orchestration](#️-data-processing-and-orchestration)
   - [📊 Dashboard](#-dashboard)
 
+## 🎯 Goal   
+- 📥 **collect data from devices**
+- 🗂️ **organize and transform data**
+- 📊 **show summary on Dashboard**
 
 ## 🛠️ Technologies
 - **Backend:** 🐍 Flask, 🌐 nginx (reverse proxy)
